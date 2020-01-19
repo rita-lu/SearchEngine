@@ -1,0 +1,115 @@
+body{
+	background: #E8CBC0;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #636FA4, #E8CBC0);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #636fa4, #E8CBC0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	padding-bottom: 60px;
+	font-family: arial;
+}
+
+img{
+	height: 30px;
+	width: 30px;
+}
+h3{
+	color: #0a2735a3;
+}
+
+h1.display-4{
+	color: grey;
+	text-align: center;
+}
+
+table{
+	margin: auto;
+
+}
+
+table, th, td{
+	border: 1px solid black;
+	padding: 5px;
+}
+
+table{
+	width: 300px;
+}
+
+
+input[type="text"]{
+	width: 400px;
+	height:30px;
+}
+
+tr th{
+	background: #a7a7b5;
+}
+
+tr td{
+	background: #ccc;
+}
+
+input:focus{
+	background: #fff;
+	border: 3px solid #2980b9;
+	outline: none;
+}
+
+input{
+	padding: 13px 13px 13px 12px;
+}
+
+.jumbotron{
+	background-image: url('http://www.webdesignhot.com/wp-content/uploads/2017/09/Abstract-Lines-Pattern-Seamless-Vector-Background.jpg');
+}
+
+.search{
+	text-align: center;
+	text-align: inline-block;
+	margin-bottom: 10px;
+}
+
+.col-lg-4{
+	text-align: center;
+}
+
+.user-info{
+	color: #fff
+}
+
+.results{
+	margin: 200px; 
+	padding: 300px;
+}
+
+.top-buffer { 
+	margin-top:45px;
+	padding: 50px;
+	text-align: center;
+}
+
+.result-links{
+	color: #302b6b;
+	font-family: arial;
+	font-size: 20px;
+}
+
+.link-style{
+	color: gray;
+	font-size: 13px;
+}
+
+.one-result:hover{
+	background-color: lightgray;
+}
+
+#keywords{
+	color: #302b6b; 
+	font-size: 15px;
+}
+
+li{
+	margin: 0px;
+}
+
+#suggestions{
+	text-align: center;
+}

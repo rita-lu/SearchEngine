@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Searchly</title>
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">	
+	<link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="#">Searchly</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	    	<li class="nav-item active">
+	    		<a class="nav-link" href="#">Home</a>
+			</li>
+			% if signed_in==0:
+	    	<li class="nav-item">
+	    		<a class="nav-link" href="/signin">Sign In</a>
+			</li>
+			%end
+	      	% if signed_in==1:
+	      	<li class="nav-item">
+				<a class="nav-link" href="/signout">Sign Out</a>
+			  </li>
+			%end
+		</ul>
+		% if signed_in==1:
+		<div class="user-info">
+			{{email}}	
+			<img src={{picture}}>
+		</div>
+		% end
+	    
+	  </div>
+	</nav>
+	
+	<div class="jumbotron jumbotron-fluid">
+	  <div class="container">
+	    <h1 class="display-4">Searchly  <i class="fas fa-search"></i></h1> 
+	  </div>
+	</div>
+
+	<div class="container">
+		<form action="/" method="GET">
+			<div class="search">
+				<label for="keywords"><h3> Keyword: </h3></label>
+				<input id="keywords" class = "keyword-field" type="text" name="keywords" autofocus/>
+				<input type="submit" name="" value="Submit" class="btn btn-info btn-s">
+			</div>
+		</form>
+	</div>
+
+    <div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				%if wordCount != None and len(wordCount)!=0:
+				<h3>Search Count</h3>
+				<table id="results">
+						<tr><th>Word</th><th>Count</th></tr>
+					    % for item, count in wordCount.items():
+					     	<tr><td>{{item}}</td><td>{{count}}</td></tr>
+					    % end
+				% end
+			    </table>
+			</div>
+
+			%if signed_in == 1:
+			<div class="col-lg-4">
+			    %if history != None and len(history)!=0:
+			    <h3>Top 20 Searched Words</h3>
+			    <table id="history">
+						<tr><th>Word</th><th>Count</th></tr>
+					    % for word,count in history:
+					     	<tr><td>{{word}}</td><td>{{count}}</td></tr>
+					    % end
+				% end
+			    </table>
+			</div>
+			
+			<div class="col-lg-4">
+			    %if recent != None and len(recent)!=0:
+			    <h3>Recent Words</h3>
+			    <table id="history">
+						<tr><th>Word</th></tr>
+					    % for word in recent:
+					     	<tr><td>{{word}}</td></tr>
+					    % end
+				% end
+			    </table>
+			</div>
+			% end
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row top-buffer">
+			<div class= "col-lg-12" class= "results">
+				% if url_rank != None and len(url_rank) !=0:
+					<h2 style = "color: white; font-family: arial; font-weight:bold;"> Search Results </h2>
+					% for key, value in url_rank:
+						<div class="container one-result">
+							<a class= "result-links" href={{key}}>{{value[1]}}</a>
+							<p class= "link-style">{{key}}</p>
+						</div>
+					% end
+				% end
+			</div>
+		</div>
+	</div>
+    
+	<center>
+		%if pageMax != 0:
+			% for x in range(1, pageMax+1):
+				<a href="?page={{ x }}&keywords={{firstKeyword}}" style="color: #302b6b; font-size: 20px;">{{x}}</a>
+			% end
+		% end
+	</center>
+</body>
+</html>
