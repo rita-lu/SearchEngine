@@ -80,12 +80,14 @@ wordCount = ''
 emailToHistory = {}
 emailToRecentSearches = {}
 pageCounter = 1
+searchSuggestions = []
 
 @route('/')
 def frontend():
 	global new_History
 	global wordCount
 	global pageCounter
+	global searchSuggestions
 
 	s = request.environ.get('beaker.session')
 	if 'email' in s:
@@ -127,6 +129,18 @@ def frontend():
 	
 	doc_url_pagerank = sorted(doc_url_pagerank.iteritems(), key=lambda (k,v):(v[0],v[1],k), reverse = True ) #sort by pagerank 
 
+	#Populating search suggestions
+	if (len(first_word)!=0):
+		cur.execute("SELECT * FROM Words WHERE word LIKE ?", (first_word+'%',))
+		search_result_fetch = cur.fetchall()
+		print 'SEARCH RESULT', search_result_fetch
+		searchSuggestions = []
+		for x in search_result_fetch:
+			if x[1] not in searchSuggestions:
+				searchSuggestions.append(x[1])
+			if len(searchSuggestions)==10:
+				break
+
 	con.commit()
 	con.close()
 
@@ -147,7 +161,7 @@ def frontend():
 	if signed_in == True:
 		if keywords == None or len(keywords) == 0:
 			newH = new_History.get_top_20_words()
-			return template('index', wordCount=wordCount, history=newH, signed_in=signed_in, email=email, picture=picture, recent=recent, pageMax=pageMax, firstKeyword=first_word, pageCounter = pageCounter, url_rank=url_rank_list)
+			return template('index', wordCount=wordCount, searchSuggestions=searchSuggestions, history=newH, signed_in=signed_in, email=email, picture=picture, recent=recent, pageMax=pageMax, firstKeyword=first_word, pageCounter = pageCounter, url_rank=url_rank_list)
 		else:
 			keywords = keywords.lower().split()
 			wordCount = Counter(keywords)
@@ -163,15 +177,15 @@ def frontend():
 					recent.pop()
 				recent.insert(0,item)
 
-			return template('index', history=newH, wordCount=wordCount, signed_in=signed_in, email=email, picture=picture, recent=recent, pageMax=pageMax, firstKeyword=first_word, pageCounter = pageCounter, url_rank=url_rank_list)
+			return template('index', history=newH, searchSuggestions=searchSuggestions, wordCount=wordCount, signed_in=signed_in, email=email, picture=picture, recent=recent, pageMax=pageMax, firstKeyword=first_word, pageCounter = pageCounter, url_rank=url_rank_list)
 	#Show word count only
 	else:
 		if keywords == None or len(keywords) == 0:
-			return template('index', wordCount=wordCount, signed_in=signed_in, pageMax=pageMax, firstKeyword=first_word, pageCounter = pageCounter, url_rank=url_rank_list)
+			return template('index', searchSuggestions=searchSuggestions, wordCount=wordCount, signed_in=signed_in, pageMax=pageMax, firstKeyword=first_word, pageCounter = pageCounter, url_rank=url_rank_list)
 		else:
 			keywords = keywords.lower().split()
 			wordCount = Counter(keywords)
-			return template('index', wordCount=wordCount, signed_in=signed_in, pageMax=pageMax, firstKeyword=first_word, pageCounter = pageCounter, url_rank=url_rank_list)
+			return template('index', searchSuggestions=searchSuggestions, wordCount=wordCount, signed_in=signed_in, pageMax=pageMax, firstKeyword=first_word, pageCounter = pageCounter, url_rank=url_rank_list)
 
 @route('/signin')
 def signin():

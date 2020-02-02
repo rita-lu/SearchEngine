@@ -5,7 +5,10 @@
   	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">	
 	<link rel="stylesheet" href="/static/index.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="/static/index.js"></script>
 </head>
+
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <a class="navbar-brand" href="#">Searchly</a>
@@ -53,6 +56,15 @@
 				<input type="submit" name="" value="Submit" class="btn btn-info btn-s">
 			</div>
 		</form>
+	</div>
+
+	<div class="container" id="suggestions">
+		%if (len(searchSuggestions)!=0):
+			<h3>Search Suggestions</h3>
+			% for x in searchSuggestions:
+				<li><a id="keywords" href="/?keywords={{x}}">{{x}}</a></li>
+			% end
+		% end
 	</div>
 
     <div class="container">
@@ -120,5 +132,6 @@
 			% end
 		% end
 	</center>
+   
 </body>
 </html>
