@@ -6,7 +6,6 @@
   	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">	
 	<link rel="stylesheet" href="/static/index.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-	<script type="text/javascript" src="/static/index.js"></script>
 </head>
 
 <body>
@@ -18,27 +17,26 @@
 
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
-	    	<li class="nav-item active">
-	    		<a class="nav-link" href="#">Home</a>
-			</li>
-			% if signed_in==0:
-	    	<li class="nav-item">
-	    		<a class="nav-link" href="/signin">Sign In</a>
-			</li>
-			%end
-	      	% if signed_in==1:
-	      	<li class="nav-item">
-				<a class="nav-link" href="/signout">Sign Out</a>
-			  </li>
-			%end
-		</ul>
-		% if signed_in==1:
-		<div class="user-info">
-			{{email}}	
-			<img src={{picture}}>
-		</div>
-		% end
-	    
+	      <li class="nav-item active">
+	        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	      </li>
+	      % if signed_in==0:
+	      <li class="nav-item">
+	        <a class="nav-link" href="/signin">Sign In</a>
+	      </li>
+	      %end
+	      % if signed_in==1:
+	      <li class="nav-item">
+	        <a class="nav-link" href="/signout">Sign Out</a>
+	      </li>
+	      %end
+	    </ul>
+	    % if signed_in==1:
+	    <div class="user-info">
+	    	{{email}}
+	    	<img src={{picture}}>
+	    </div>
+	    % end
 	  </div>
 	</nav>
 	
@@ -66,6 +64,13 @@
 			% end
 		% end
 	</div>
+
+	<!-- <a href="/static/page1.html">Page 1</a>
+	<section id="dynamic"></section>
+
+	<p id="demo">Click the button to replace this document with new content.</p> -->
+
+<!-- <button onclick="myFunction()">Try it</button> -->
 
     <div class="container">
 		<div class="row">
